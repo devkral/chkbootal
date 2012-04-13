@@ -6,7 +6,7 @@ SYSTEMD_FILE2=chkboot-shutdownsafe.service
 BIN_FILE1=src/bootcheck.sh
 BIN_FILE2=shutdownsafe.sh
 
-SEDJUST=sed "s/\usr\/bin\//$BINDIR/" -s -f $SYSTEMD_FILE1 $SYSTEMD_FILE2
+SEDJUST=sed "s/\usr\/bin\//$BINDIR/" -s $SYSTEMD_FILE1 $SYSTEMD_FILE2
 RM=rm -f
 CP=cp
 
