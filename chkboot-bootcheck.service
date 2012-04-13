@@ -9,6 +9,7 @@ StandardOutput=inherit
 StandardError=inherit
 KillMode=process
 IgnoreSIGPIPE=no
+TimeoutSec=0
 
 [Install]
 WantedBy=basic.target
