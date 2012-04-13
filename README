@@ -1,0 +1,12 @@
+A script for checking the boot files against sha512 signatures.
+Generation of signatures takes place at shutdown.
+Additional information: init files are just for systemd included
+
+
+LICENSE
+
+In the moment there are four flaws:
+1. It's slow because of sha512
+2. It's bash 
+3. A root-shell is spawnable without password
+4. Even with a secured root-shell the user has too many rights. Maybe I lock the whole panic options behind a password

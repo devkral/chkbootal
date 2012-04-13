@@ -1,0 +1,10 @@
+[Unit]
+Description=Save checksum of chkdir
+Before=shutdown.target
+
+[Service]
+Type=default
+ExecStart=/usr/bin/shutdownsafe.sh
+
+[Install]
+WantedBy=shutdown.target

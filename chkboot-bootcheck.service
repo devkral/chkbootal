@@ -1,0 +1,14 @@
+[Unit]
+Description=Checks chkdir
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bootcheck.sh
+StandardInput=tty-force
+StandardOutput=inherit
+StandardError=inherit
+KillMode=process
+IgnoreSIGPIPE=no
+
+[Install]
+WantedBy=basic.target
