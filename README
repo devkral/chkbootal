@@ -1,9 +1,18 @@
-A script for checking the boot files against sha512 signatures.
+This is a script for checking the boot files against sha512 signatures basing on a heise script
+but with much more features and native support for systemd.
 Generation of signatures takes place at shutdown.
 Additional information: init files are just for systemd included
 
+INSTALL:
+make
 
-LICENSE
+sane defaults but for special wishes:
+
+ROOTDIR: Root directory (changes the other variables by default)
+BINDIR: The directory where the bash scripts are installed
+SYSTEMD: This variable changes where the systemd scripts are installed
+
+LICENSE: GPL2
 
 In the moment there are four flaws:
 1. It's slow because of sha512
