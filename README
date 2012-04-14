@@ -3,6 +3,10 @@ but with much more features and native support for systemd.
 Generation of signatures takes place at shutdown.
 Additional information: init files are just for systemd included
 
+WARNING: In my tests this script doesn't work and strange sideeffects happen. 
+
+
+
 INSTALL:
 make
 

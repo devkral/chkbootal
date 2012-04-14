@@ -99,7 +99,7 @@ check_kernel()
   files2=$(echo $files2)
   for file_current2 in $files2; do
   adjust_path2
-   if [ -f $adpath2 ] && [ "$(sha512sum -b $file_current2)" != "$(cat $adpath2)" ]; then
+   if [ "$(sha512sum -b $file_current2)" != "$(cat $adpath2 2> /dev/null)" ]; then
     echo "$file_current2 has a different checksum"
    fi
   done
@@ -116,7 +116,7 @@ check_all()
   files2=$(echo $files2)
   for file_current2 in $files2; do
   adjust_path2
-   if [ -f $adpath2 ] && [ "$(sha512sum -b $file_current2)" != "$(cat $adpath2)" ]; then
+   if  [ "$(sha512sum -b $file_current2)" != "$(cat $adpath2 2> /dev/null)" ]; then
     echo "$file_current2 has a different checksum"
    fi
   done
@@ -229,8 +229,8 @@ files=$(find $chkdir -xdev -type f | grep -v "lost+found"  | grep -v "Trash")
 files=$(echo $files)
 for file_current in $files; do
 adjust_path
-  if [ ! -f $adpath ] || [ "$(sha512sum -b $file_current)" != "$(cat $adpath)" ]; then
-   if [ -f $adpath.modified ] || [ "$(sha512sum -b $file_current)" = "$(cat $adpath.modified)" ]; then
+  if [ "$(sha512sum -b $file_current)" != "$(cat $adpath 2> /dev/null)" ]; then
+   if [ -f $adpath.modified ] && [ "$(sha512sum -b $file_current)" = "$(cat $adpath.modified)" ]; then
     echo "shutdownsafe.sh hasn't saved $file_current"
    else
     what="$file_current"
