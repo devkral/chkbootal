@@ -1,9 +1,9 @@
-This is a script for checking the boot files against sha512 signatures basing on a heise script
-but with much more features and native support for systemd.
-Generation of signatures takes place at shutdown.
-Additional information: init files are just for systemd included
+This is a script for checking the boot files against sha512 signatures.
+It doesn' base on a script from heise anymore.
+Generation of signatures takes place at shutdown while the check takes place at boot.
+Additional information: just init files for systemd are included
 
-WARNING: In my tests this script doesn't work and strange sideeffects happen. 
+WARNING: Not tested yet
 
 
 
@@ -13,13 +13,11 @@ make
 sane defaults but for special wishes:
 
 ROOTDIR: Root directory (changes the other variables by default)
-BINDIR: The directory where the bash scripts are installed
-SYSTEMD: This variable changes where the systemd scripts are installed
+BINDIR: The directory where the bash scripts are installed (default: /usr/bin/)
+SYSTEMD: This variable changes where the systemd scripts are installed (default: /usr/lib/systemd/system)
 
-LICENSE: GPL2
+LICENSE: GPL3
 
-In the moment there are four flaws:
-1. It's slow because of sha512
-2. It's bash 
-3. A root-shell is spawnable without password
-4. Even with a secured root-shell the user has too many rights. Maybe I lock the whole panic options behind a password
+In the moment there are some flaws:
+1. It hasn't all options
+2. Bad documentation
