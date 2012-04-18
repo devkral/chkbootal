@@ -1,0 +1,13 @@
+[Unit]
+Description=Checks chkdir
+Before=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python /usr/bin/chkbootal.py boot
+TimeoutSec=0
+StandardInput=tty
+RemainAfterExit=no
+
+[Install]
+WantedBy=basic.target
