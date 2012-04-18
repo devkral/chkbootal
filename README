@@ -10,8 +10,6 @@ WARNING: Not tested yet
 INSTALL:
 make
 
-sane defaults but for special wishes:
-
 ROOTDIR: Root directory (changes the other variables by default)
 BINDIR: The directory where the bash scripts are installed (default: /usr/bin/)
 SYSTEMD: This variable changes where the systemd scripts are installed (default: /usr/lib/systemd/system)
