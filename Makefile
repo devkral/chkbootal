@@ -8,7 +8,9 @@ LESS="/usr/bin/less"
 
 
 
-all : sysd
+all : install
+
+install:  sysd
 
 sysd : mainscript
 	sed "s|/usr/bin/chkbootal.py|$(INSTALLDIR)/$(NAME)|" systemd/chkbootal-boot.service > $(SYSTEMD)/$(NAME)-boot.service
