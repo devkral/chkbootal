@@ -3,7 +3,7 @@ Description=Creates hashes
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/python /usr/bin/chkbootal.py shutdown
+ExecStart=/usr/bin/chkbootal.py shutdown
 TimeoutSec=0
 StandardOutput=tty
 StandardInput=tty

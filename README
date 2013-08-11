@@ -8,14 +8,21 @@ WARNING: Not tested yet
 
 
 INSTALL:
-make
+make install <option=xy>…
 
-ROOTDIR: Root directory (changes the other variables by default)
-BINDIR: The directory where the bash scripts are installed (default: /usr/bin/)
-SYSTEMD: This variable changes where the systemd scripts are installed (default: /usr/lib/systemd/system)
+NAME="chkbootal.py"
+INSTALLDIR="/usr/bin"
+SYSTEMD="/usr/lib/systemd/system"
+CHKDIR="/boot"
+CHKSAVEDIR="/var/chkboot"
+REBOOT="/usr/bin/systemctl reboot"
+LESS="/usr/bin/less"
+
+UNINSTAL
+make uninstall <same options as used in install>
 
 LICENSE: GPL3
 
 In the moment there are some flaws:
-1. It hasn't all options
-2. Bad documentation
+1. Bad documentation
+2. Systemd doesn't work
