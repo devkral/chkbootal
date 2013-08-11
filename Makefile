@@ -1,10 +1,8 @@
-NAME="chkbootal.py"
-INSTALLDIR="/usr/bin"
-SYSTEMD="/usr/lib/systemd/system"
-CHKDIR="/boot"
-CHKSAVEDIR="/var/chkboot"
-REBOOT="/usr/bin/systemctl reboot"
-LESS="/usr/bin/less"
+NAME=chkbootal.py
+INSTALLDIR=/usr/bin
+SYSTEMD=/usr/lib/systemd/system
+CHKDIR=/boot
+CHKSAVEDIR=/var/chkboot
 
 
 
@@ -21,7 +19,6 @@ mainscript :
 	sed -i -e "s|/boot|$(CHKDIR)|" $(INSTALLDIR)/$(NAME)
 	sed -i -e "s|/var/chkboot|$(CHKSAVEDIR)|" $(INSTALLDIR)/$(NAME)
 	sed -i -e "s|/usr/bin/systemctl reboot|$(REBOOT)|" $(INSTALLDIR)/$(NAME)
-	sed -i -e "s|/usr/bin/less|$(LESS)|" $(INSTALLDIR)/$(NAME)
 
 
 uninstall :

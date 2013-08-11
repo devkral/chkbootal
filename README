@@ -10,15 +10,13 @@ WARNING: Not tested yet
 INSTALL:
 make install <option=xy>…
 
-NAME="chkbootal.py"
-INSTALLDIR="/usr/bin"
-SYSTEMD="/usr/lib/systemd/system"
-CHKDIR="/boot"
-CHKSAVEDIR="/var/chkboot"
-REBOOT="/usr/bin/systemctl reboot"
-LESS="/usr/bin/less"
+NAME=chkbootal.py
+INSTALLDIR=/usr/bin
+SYSTEMD=/usr/lib/systemd/system
+CHKDIR=/boot
+CHKSAVEDIR=/var/chkboot
 
-UNINSTAL
+UNINSTALL:
 make uninstall <same options as used in install>
 
 LICENSE: GPL3
