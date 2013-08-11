@@ -29,7 +29,7 @@ helptext="""
  R: Reboot
  C: Recheck and output corrupted files
  B: Backup old files
- quit: Quit and continue boot !!!not recommended except after a syscrash after changes in chkdir!!!
+ quit/exit: Quit and continue boot !!!not recommended except after a syscrash after changes in chkdir!!!
  help/--help: this help menu
 """
 # MD: Try to mount checkdir
@@ -100,10 +100,20 @@ def check_chkdir():
     for root, dirs, files in os.walk(chkdir_real(""),False):
       for filee in files:
         virtfile=chkdir_virt(os.path.join(root,filee))
-        if os.path.exists(chksavedir_real(virtfile)) == False or \
-filecmp.cmp(chkdir_real(virtfile), chksavedir_real(virtfile),False) == False:
+        if os.path.exists(chksavedir_real(virtfile)) == False:
           returnn[0]=False
-          returnn.append(chkdir_real(virtfile))
+          returnn.append((chkdir_real(virtfile),"added"))
+        else:
+          try:
+            if filecmp.cmp(chkdir_real(virtfile), chksavedir_real(virtfile),False) == False:
+              returnn[0]=False
+              returnn.append((chkdir_real(virtfile),"corrupted"))
+          except PermissionError:
+            returnn[0] = False
+            returnn.append((chkdir_real(virtfile),"no permission"))
+  except PermissionError:
+    print ("No permission to access chkdir ("+chkdir_real("")+")")
+    sys.exit(1)
   except FileNotFoundError:
     print ("chkdir not found")
     sys.exit(1)
@@ -122,10 +132,10 @@ def update_chksavedir():
     try:
       shutil.copytree(chkdir_real(""), chksavedir_real(""), True)
     except IOError:
-      print ("Save failed (missing permissions?)")
+      print ("Reading save failed (Permission?)")
       return -1
     except OSError:
-      print ("Save failed (missing permissions?)")
+      print ("Reading save failed (Permission?)")
       return -1
     return 0
   else:
@@ -152,6 +162,7 @@ def nuke():
   try:
     shutil.rmtree(chkdir_real(""))
   except IOError:
+    print("Can't delete, return")
     return -1
   try:
     shutil.copytree(chksavedir_real(""), chkdir_real(""))
@@ -179,11 +190,15 @@ def nukebackup():
 def checkfailmenu():
   userinp=input(helptext)
   if userinp == "NR":
-    nuke()
-    reboot()
+    if nuke()==0:
+      reboot()
+    else:
+      checkfailmenu()
   elif userinp == "NB":
-    nukebackup()
-    reboot()
+    if nukebackup()==0:
+      reboot()
+    else:
+      checkfailmenu()
   elif userinp == "NNR":
     nuke()
     checkfailmenu()
@@ -200,10 +215,11 @@ def checkfailmenu():
     else:
       tempout="Corrupted files:\n"
       for elem in returnn[1:]:
-        tempout+=elem+"\n"
+        tempout+=elem[0]+" "+elem[1]+"\n"
       less(tempout)
       checkfailmenu()      
-  elif userinp == "quit" or userinp == "quit()":
+  elif userinp=="quit" or userinp=="quit()" or userinp=="exit" \
+or userinp=="exit()":
     return 0
   elif userinp == ("help", "--help"):
     print("help:")
@@ -228,14 +244,16 @@ if argv == "check" or argv == "boot":
   if returnn[0]==False and len(returnn)>1:
     tempout="Corrupted files:\n"
     for elem in returnn[1:]:
-      tempout+=elem+"\n"
+      tempout+=elem[0]+" "+elem[1]+"\n"
     print(tempout)
     checkfailmenu()
+  else:
+    print("Check successful")
 elif argv == "save" or argv == "shutdown":
   update_chksavedir()
   cleanold()
 elif argv == "test":
-  pass
+  checkfailmenu()
 else:
   print("check: compare chkdir ("+chkdir+") against chksavedir/save ("+chksavedir+"/save)\nsave: update chksavedir")
 

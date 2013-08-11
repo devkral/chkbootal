@@ -14,3 +14,4 @@ RemainAfterExit=no
 
 [Install]
 WantedBy=basic.target
+Also=chkbootal-stop.service

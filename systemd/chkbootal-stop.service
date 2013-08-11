@@ -11,3 +11,4 @@ RemainAfterExit=no
 
 [Install]
 WantedBy=shutdown.target
+Also=chkbootal-boot.service

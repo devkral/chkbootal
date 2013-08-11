@@ -12,8 +12,8 @@ all : install
 install:  sysd
 
 sysd : mainscript
-	sed "s|/usr/bin/chkbootal.py|$(INSTALLDIR)/$(NAME)$(EXTENSION)|" systemd/chkbootal-boot.service > $(SYSTEMD)/$(NAME)-boot.service
-	sed "s|/usr/bin/chkbootal.py|$(INSTALLDIR)/$(NAME)$(EXTENSION)|" systemd/chkbootal-stop.service > $(SYSTEMD)/$(NAME)-stop.service
+	sed -e "s|/usr/bin/chkbootal.py|$(INSTALLDIR)/$(NAME)$(EXTENSION)|" -e "s|Also=chkbootal|Also=$(NAME)|" systemd/chkbootal-boot.service > $(SYSTEMD)/$(NAME)-boot.service
+	sed -e "s|/usr/bin/chkbootal.py|$(INSTALLDIR)/$(NAME)$(EXTENSION)|" -e "s|Also=chkbootal|Also=$(NAME)|" systemd/chkbootal-stop.service > $(SYSTEMD)/$(NAME)-stop.service
 
 mainscript :
 	install -D -m755 src/chkbootal.py $(INSTALLDIR)/$(NAME)$(EXTENSION)
