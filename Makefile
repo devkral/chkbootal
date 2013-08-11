@@ -1,4 +1,5 @@
-NAME=chkbootal.py
+NAME=chkbootal
+EXTENSION=.py
 INSTALLDIR=/usr/bin
 SYSTEMD=/usr/lib/systemd/system
 CHKDIR=/boot
@@ -11,14 +12,14 @@ all : install
 install:  sysd
 
 sysd : mainscript
-	sed "s|/usr/bin/chkbootal.py|$(INSTALLDIR)/$(NAME)|" systemd/chkbootal-boot.service > $(SYSTEMD)/$(NAME)-boot.service
-	sed "s|/usr/bin/chkbootal.py|$(INSTALLDIR)/$(NAME)|" systemd/chkbootal-stop.service > $(SYSTEMD)/$(NAME)-stop.service
+	sed "s|/usr/bin/chkbootal.py|$(INSTALLDIR)/$(NAME)$(EXTENSION)|" systemd/chkbootal-boot.service > $(SYSTEMD)/$(NAME)-boot.service
+	sed "s|/usr/bin/chkbootal.py|$(INSTALLDIR)/$(NAME)$(EXTENSION)|" systemd/chkbootal-stop.service > $(SYSTEMD)/$(NAME)-stop.service
 
 mainscript :
-	install -D -m755 src/chkbootal.py $(INSTALLDIR)/$(NAME)
-	sed -i -e "s|/boot|$(CHKDIR)|" $(INSTALLDIR)/$(NAME)
-	sed -i -e "s|/var/chkboot|$(CHKSAVEDIR)|" $(INSTALLDIR)/$(NAME)
-	sed -i -e "s|/usr/bin/systemctl reboot|$(REBOOT)|" $(INSTALLDIR)/$(NAME)
+	install -D -m755 src/chkbootal.py $(INSTALLDIR)/$(NAME)$(EXTENSION)
+	sed -i -e "s|/boot|$(CHKDIR)|" $(INSTALLDIR)/$(NAME)$(EXTENSION)
+	sed -i -e "s|/var/chkboot|$(CHKSAVEDIR)|" $(INSTALLDIR)/$(NAME)$(EXTENSION)
+	sed -i -e "s|/usr/bin/systemctl reboot|$(REBOOT)|" $(INSTALLDIR)/$(NAME)$(EXTENSION)
 
 
 uninstall :

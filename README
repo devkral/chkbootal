@@ -10,7 +10,8 @@ WARNING: Not tested yet
 INSTALL:
 make install <option=xy>…
 
-NAME=chkbootal.py
+NAME=chkbootal
+EXTENSION=.py
 INSTALLDIR=/usr/bin
 SYSTEMD=/usr/lib/systemd/system
 CHKDIR=/boot
